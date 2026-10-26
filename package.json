@@ -1,0 +1,22 @@
+{
+  "name": "alih",
+  "version": "1.0.0",
+  "description": "Smooth page transitions for ordinary multi-page websites: native cross-document view transitions where supported, a fetch-and-swap fallback everywhere else.",
+  "main": "src/alih.js",
+  "files": ["src"],
+  "scripts": {
+    "start": "npx --yes serve docs",
+    "demo": "node scripts/build-demo.js",
+    "art": "python3 scripts/make-art.py",
+    "sync": "node scripts/sync-docs.js",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  },
+  "keywords": ["view-transitions", "page-transitions", "mpa", "progressive-enhancement", "php", "static-site", "shared-element"],
+  "author": "Reza Arya Maulana",
+  "license": "MIT",
+  "homepage": "https://rezaaryam.github.io/alih/",
+  "repository": { "type": "git", "url": "https://github.com/rezaaryam/alih.git" }
+}

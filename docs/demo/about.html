@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About · Quiet Rooms</title>
+<meta name="description" content="About this demo gallery.">
+<meta name="theme-color" content="#f4f1ea">
+<link rel="icon" href="../favicon.svg">
+<link rel="preload" href="../fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../alih.css">
+<link rel="stylesheet" href="../style.css">
+<script src="../alih.js"></script>
+</head>
+<body class="">
+<header class="g-top" data-alih="site-header">
+  <a class="g-logo" href="./">Quiet Rooms</a>
+  <nav class="g-nav" aria-label="Gallery">
+    <a href="./">Prints</a>
+    <a href="about.html">About</a>
+    <a class="g-docs" href="../">alih docs</a>
+  </nav>
+</header>
+<main data-alih-root class="g-about">
+  <section class="g-intro">
+    <p class="g-kicker">About</p>
+    <h1 data-alih="page-title">A gallery that is <em>not real.</em></h1>
+    <div class="g-prose">
+      <p>Quiet Rooms exists to show what <a href="../">alih</a> does on an ordinary multi-page site. Every page here is a separate HTML file with a normal link to the next one. There is no router, no framework, and no build step for the pages themselves.</p>
+      <p>In browsers that support cross-document view transitions, the browser animates between pages on its own; alih only tells it which elements belong together. In other browsers, alih fetches the next page and swaps it in, so the experience stays close.</p>
+      <p>Use the switch in the corner to compare the two.</p>
+    </div>
+  </section>
+</main>
+<aside class="mode" data-no-alih aria-label="Transition mode">
+  <span class="mode-dot" aria-hidden="true"></span>
+  <span class="mode-t">Transition: <b data-mode-label>checking</b></span>
+  <a class="mode-a" data-mode-switch href="?alih=soft">Try the fallback</a>
+</aside>
+<script src="../mode.js" data-alih-skip></script>
+</body>
+</html>

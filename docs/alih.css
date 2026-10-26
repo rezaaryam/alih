@@ -1,0 +1,61 @@
+/*!
+ * alih 1.0.0, default transitions. Override any of these in your own CSS.
+ * MIT License, Reza Arya Maulana.
+ */
+
+/* Opt in to cross-document view transitions (needed on every page). */
+@view-transition { navigation: auto; }
+
+:root {
+  --alih-duration: 420ms;
+  --alih-ease: cubic-bezier(.22, .8, .24, 1);
+  --alih-shift: 28px;
+  --alih-bar: #2b59ff;
+}
+
+/* ---------- the page itself ---------- */
+::view-transition-group(root) { animation-duration: var(--alih-duration); animation-timing-function: var(--alih-ease); }
+
+/* slide: the old page drifts away, the new one comes in from the direction of travel */
+html[data-alih-animation="slide"]::view-transition-old(root) { animation: var(--alih-duration) var(--alih-ease) both alih-out; }
+html[data-alih-animation="slide"]::view-transition-new(root) { animation: var(--alih-duration) var(--alih-ease) both alih-in; }
+html[data-alih-animation="slide"][data-alih-dir="back"]::view-transition-old(root) { animation-name: alih-out-back; }
+html[data-alih-animation="slide"][data-alih-dir="back"]::view-transition-new(root) { animation-name: alih-in-back; }
+
+/* fade: a plain cross-fade */
+html[data-alih-animation="fade"]::view-transition-old(root),
+html[data-alih-animation="fade"]::view-transition-new(root) { animation-duration: calc(var(--alih-duration) * .7); }
+
+/* none: shared elements still morph, the page itself does not move */
+html[data-alih-animation="none"]::view-transition-old(root),
+html[data-alih-animation="none"]::view-transition-new(root) { animation: none; }
+
+@keyframes alih-out { to { opacity: 0; transform: translateX(calc(var(--alih-shift) * -1)); } }
+@keyframes alih-in { from { opacity: 0; transform: translateX(var(--alih-shift)); } }
+@keyframes alih-out-back { to { opacity: 0; transform: translateX(var(--alih-shift)); } }
+@keyframes alih-in-back { from { opacity: 0; transform: translateX(calc(var(--alih-shift) * -1)); } }
+
+/* ---------- shared elements (data-alih) ---------- */
+::view-transition-group(*) { animation-duration: var(--alih-duration); animation-timing-function: var(--alih-ease); }
+/* images change aspect ratio between pages; keep them filling the box while they move */
+::view-transition-old(*), ::view-transition-new(*) { height: 100%; }
+::view-transition-image-pair(*) { isolation: isolate; }
+
+/* ---------- fallback for browsers without view transitions ---------- */
+.alih-out { animation: alih-fade-out 160ms ease both; }
+.alih-in { animation: alih-fade-in 260ms var(--alih-ease) both; }
+@keyframes alih-fade-out { to { opacity: 0; transform: translateY(6px); } }
+@keyframes alih-fade-in { from { opacity: 0; transform: translateY(-6px); } }
+
+/* ---------- a thin progress bar while the next page loads (soft mode) ---------- */
+html.alih-loading::before {
+  content: ""; position: fixed; z-index: 2147483647; top: 0; left: 0; height: 2px; width: 100%;
+  background: var(--alih-bar); transform-origin: left; animation: alih-bar 1.6s cubic-bezier(.1, .7, .3, 1) .12s both;
+  pointer-events: none;
+}
+@keyframes alih-bar { from { transform: scaleX(0); } to { transform: scaleX(.85); } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .alih-out, .alih-in, html.alih-loading::before { animation: none !important; }
+}

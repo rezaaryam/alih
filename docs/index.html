@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>alih · Page transitions for ordinary websites</title>
+<meta name="description" content="Smooth page transitions for multi-page sites: static HTML, PHP, anything. Native cross-document view transitions where supported, a fetch-and-swap fallback everywhere else. About 6 KB.">
+<meta name="theme-color" content="#f4f1ea">
+<link rel="icon" href="favicon.svg">
+<link rel="preload" href="fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="alih.css">
+<link rel="stylesheet" href="style.css">
+<script src="alih.js"></script>
+</head>
+<body>
+<header class="wrap top" data-alih="site-header">
+  <a class="logo" href="./" aria-label="alih home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#141310"/><rect x="7" y="9" width="11" height="14" rx="2" fill="#f4f1ea" opacity=".45"/><rect x="13" y="9" width="12" height="14" rx="2" fill="#f4f1ea"/></svg>
+    alih
+  </a>
+  <nav aria-label="Docs">
+    <a href="demo/">Demo</a>
+    <a href="#install">Install</a>
+    <a href="#api">API</a>
+    <a href="#support">Support</a>
+    <a class="gh" href="https://github.com/rezaaryam/alih" aria-label="Source on GitHub" data-no-alih><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+  </nav>
+</header>
+
+<main data-alih-root>
+  <section class="wrap hero">
+    <div>
+      <p class="badge"><i>v1.0.0</i>About 6 KB · No framework · MIT</p>
+      <h1>Pages that <em>glide.</em></h1>
+      <p class="lede">Smooth transitions between the pages of an ordinary website. Static HTML, PHP, WordPress themes, anything with links. Pictures travel from a list into the next page, and back again.</p>
+      <div class="cta">
+        <a class="btn solid" href="demo/">Open the demo gallery
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
+        </a>
+        <a class="btn line" href="#install">Add it in two lines</a>
+      </div>
+    </div>
+    <a class="fan" href="demo/" aria-label="Open the demo gallery">
+      <figure class="g-art f1" style="--bg:#f2ece0"><img src="art/signal.webp" alt="" width="1000" height="1250" data-alih="art-signal"></figure>
+      <figure class="g-art f2" style="--bg:#e9dcc4"><img src="art/low-tide.webp" alt="" width="1000" height="1250" data-alih="art-low-tide"></figure>
+      <figure class="g-art f3" style="--bg:#0d1630"><img src="art/night-ferry.webp" alt="" width="1000" height="1250" data-alih="art-night-ferry"></figure>
+      <span class="fan-tag">Click, and watch them land</span>
+    </a>
+  </section>
+
+  <section class="wrap sec" id="how">
+    <div class="sec-h">
+      <p class="n">01</p>
+      <h2>One script, <em>three paths.</em></h2>
+      <p>alih picks the best way your visitor's browser can animate, and never breaks a link if it cannot.</p>
+    </div>
+    <ol class="modes indent">
+      <li data-mode="native">
+        <div><h3>Native</h3><p class="who">Chrome, Edge, Safari 18.2 and newer</p></div>
+        <p>The browser itself animates from one page to the next with cross-document view transitions. alih only names the elements that belong together, picks the direction, and asks the browser to prerender pages you are about to open.</p>
+        <span class="you">Your browser</span>
+      </li>
+      <li data-mode="soft">
+        <div><h3>Soft</h3><p class="who">Browsers without cross-document transitions</p></div>
+        <p>Links are fetched in the background, the main content is swapped in place, and the address bar, title, Back button, and scroll position behave as usual. Shared elements still morph where the browser has same-document view transitions.</p>
+        <span class="you">Your browser</span>
+      </li>
+      <li data-mode="fade">
+        <div><h3>Fade</h3><p class="who">Older browsers</p></div>
+        <p>A short fade between pages. If anything goes wrong at all, alih steps aside and lets the browser load the page normally.</p>
+        <span class="you">Your browser</span>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap sec" id="install">
+    <div class="sec-h">
+      <p class="n">02</p>
+      <h2>Add it in <em>two lines.</em></h2>
+      <p>Put both tags in the head of every page. That is the whole setup for a fade-and-slide between pages.</p>
+    </div>
+    <ol class="steps indent">
+      <li>
+        <h3>Load the CSS and the script</h3>
+        <pre class="code" data-lang="html">&lt;link rel="stylesheet" href="https://rezaaryam.github.io/alih/alih.css"&gt;
+&lt;script src="https://rezaaryam.github.io/alih/alih.js"&gt;&lt;/script&gt;</pre>
+        <p>Keep the script in the head and do not defer it: the browser needs it before the first frame of each page.</p>
+      </li>
+      <li>
+        <h3>Mark what should travel</h3>
+        <pre class="code" data-lang="html">&lt;!-- list page --&gt;
+&lt;a href="low-tide.html"&gt;
+  &lt;img src="low-tide.webp" data-alih="art-low-tide"&gt;
+  &lt;h2 data-alih="title-low-tide"&gt;Low Tide&lt;/h2&gt;
+&lt;/a&gt;
+
+&lt;!-- low-tide.html --&gt;
+&lt;img src="low-tide.webp" data-alih="art-low-tide"&gt;
+&lt;h1 data-alih="title-low-tide"&gt;Low Tide&lt;/h1&gt;</pre>
+        <p>Same key on both pages, and the element morphs. Only the card you clicked is named, so a list of a hundred items stays fast.</p>
+      </li>
+      <li>
+        <h3>Wrap the content that changes (optional)</h3>
+        <pre class="code" data-lang="html">&lt;main data-alih-root&gt; ... &lt;/main&gt;</pre>
+        <p>Used by the soft fallback to know what to swap. Without it, alih uses <code>&lt;main&gt;</code>, then the whole body.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="wrap sec" id="api">
+    <div class="sec-h">
+      <p class="n">03</p>
+      <h2>Options and <em>events.</em></h2>
+      <p>Everything has a sensible default. Change it on the script tag, or in CSS.</p>
+    </div>
+    <div class="indent scroll">
+      <table class="table">
+        <thead><tr><th scope="col">On the script tag</th><th scope="col">Default</th><th scope="col">What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>data-mode</code></td><td>auto</td><td><code>auto</code>, <code>native</code>, <code>soft</code>, or <code>off</code>. Visitors can also add <code>?alih=soft</code> to a URL to compare.</td></tr>
+          <tr><td><code>data-animation</code></td><td>slide</td><td><code>slide</code>, <code>fade</code>, or <code>none</code> for the page itself. Shared elements always morph.</td></tr>
+          <tr><td><code>data-root</code></td><td>[data-alih-root], main</td><td>What the soft fallback swaps.</td></tr>
+          <tr><td><code>data-prefetch</code></td><td>true</td><td>Prerender (native) or prefetch (soft) a page when its link is hovered or touched.</td></tr>
+          <tr><td><code>data-manual</code></td><td>off</td><td>Do not start on load; call <code>Alih.start(options)</code> yourself.</td></tr>
+        </tbody>
+      </table>
+      <table class="table" style="margin-top:40px">
+        <thead><tr><th scope="col">On links and elements</th><th scope="col">What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>data-alih="key"</code></td><td>Elements with the same key on two pages morph into each other.</td></tr>
+          <tr><td><code>data-alih-direction="back"</code></td><td>Slide the other way, for links like "All prints". Real Back and Forward are detected on their own.</td></tr>
+          <tr><td><code>data-no-alih</code></td><td>Leave this link, or everything inside, to the browser.</td></tr>
+          <tr><td><code>--alih-duration</code>, <code>--alih-shift</code></td><td>CSS variables for speed and slide distance.</td></tr>
+        </tbody>
+      </table>
+      <pre class="code" data-lang="js" style="margin-top:40px">Alih.mode;                       // "native", "soft", or "off"
+Alih.on("load", ({ url }) =&gt; {   // soft mode: re-run your page scripts here
+  console.log("now showing", url);
+});
+document.addEventListener("alih:start", (e) =&gt; console.log(e.detail.shared));</pre>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="support">
+    <div class="sec-h">
+      <p class="n">04</p>
+      <h2>Works <em>everywhere.</em></h2>
+      <p>The richest effect where the browser allows it, and a working page everywhere else.</p>
+    </div>
+    <div class="indent scroll">
+      <table class="table">
+        <thead><tr><th scope="col">Browser</th><th scope="col">Mode</th><th scope="col">Shared elements</th></tr></thead>
+        <tbody>
+          <tr><td>Chrome and Edge 126+</td><td class="yes">Native</td><td class="yes">Yes</td></tr>
+          <tr><td>Safari 18.2+ (macOS and iPhone)</td><td class="yes">Native</td><td class="yes">Yes</td></tr>
+          <tr><td>Firefox and others with same-document view transitions</td><td class="mid">Soft</td><td class="yes">Yes</td></tr>
+          <tr><td>Older browsers</td><td class="mid">Soft with fade</td><td>No, a short fade instead</td></tr>
+          <tr><td>Reduced motion turned on</td><td>Any</td><td>No animation at all</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:20px;color:var(--ink-3);font-size:14.5px">Version numbers follow the public release notes of each browser. The automated tests in this repository run in Chromium, for both the native and the soft path.</p>
+    </div>
+  </section>
+
+  <footer class="wrap foot">
+    <div><b>Links stay links.</b>Made by <a href="https://github.com/rezaaryam" data-no-alih>Reza Arya Maulana</a>. <em>Alih</em> is Indonesian for "to shift".</div>
+    <div><a href="https://github.com/rezaaryam/alih" data-no-alih>Source</a> · MIT License</div>
+  </footer>
+</main>
+
+<script src="docs.js" data-alih-skip></script>
+</body>
+</html>
